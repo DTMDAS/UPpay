@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoPro Hero - Earning App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f3f0ff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .mobile-container {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            max-height: 896px;
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            position: relative;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        /* Header */
+        .header {
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        /* Card Section */
+        .card {
+            background: white;
+            margin: 15px;
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .plan-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #4c1d95;
+            margin-bottom: 10px;
+        }
+        .plan-details {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        .btn:active {
+            background: #6d28d9;
+        }
+        /* Recharge Form */
+        .recharge-box {
+            background: white;
+            margin: 15px;
+            border-radius: 16px;
+            padding: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+        .amount-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .amt-btn {
+            padding: 10px;
+            background: #f3f0ff;
+            border: 1px solid #7c3aed;
+            border-radius: 6px;
+            color: #7c3aed;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+        /* Bottom Navigation */
+        .nav-bar {
+            margin-top: auto;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .nav-item.active {
+            color: #7c3aed;
+            font-weight: bold;
+        }
+        .screen {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+        }
+        .screen.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mobile-container">
+
+    <!-- HOME SCREEN -->
+    <div id="home-screen" class="screen active">
+        <div class="header">GoPro Hero Portal</div>
+        
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>Balance: <b>Rs 250.00</b></span>
+                <button class="btn" style="width: auto; padding: 6px 12px; margin: 0;" onclick="switchScreen('recharge-screen')">+ Recharge</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="plan-title">GOPRO HERO</div>
+            <div class="plan-details"><span>Price:</span> <b>Rs 700</b></div>
+            <div class="plan-details"><span>Daily Income:</span> <b style="color: green;">Rs 175</b></div>
+            <div class="plan-details"><span>Cycle:</span> <b>160 days</b></div>
+            <div class="plan-details"><span>Total Income:</span> <b style="color: #7c3aed;">Rs 28,000</b></div>
+            <button class="btn">BUY NOW</button>
+        </div>
+    </div>
+
+    <!-- RECHARGE SCREEN -->
+    <div id="recharge-screen" class="screen">
+        <div class="header">
+            <span style="float: left; cursor: pointer;" onclick="switchScreen('home-screen')">←</span>
+            INSTANT DEPOSIT
+        </div>
+        
+        <div class="recharge-box">
+            <div class="input-group">
+                <label>ENTER AMOUNT (RS) (Limit: 500 - 50,000)</label>
+                <input type="number" id="deposit-amount" placeholder="Type custom amount" value="700">
+            </div>
+
+            <div class="amount-grid">
+                <div class="amt-btn" onclick="setAmount(700)">Rs. 700</div>
+                <div class="amt-btn" onclick="setAmount(1750)">Rs. 1,750</div>
+                <div class="amt-btn" onclick="setAmount(3500)">Rs. 3,500</div>
+                <div class="amt-btn" onclick="setAmount(5000)">Rs. 5,000</div>
+                <div class="amt-btn" onclick="setAmount(10000)">Rs. 10,000</div>
+                <div class="amt-btn" onclick="setAmount(20000)">Rs. 20,000</div>
+            </div>
+
+            <button class="btn" onclick="openUPI()">CONFIRM DEPOSIT</button>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="nav-bar">
+        <div class="nav-item active" onclick="switchScreen('home-screen')">Home</div>
+        <div class="nav-item" onclick="switchScreen('recharge-screen')">Recharge</div>
+        <div class="nav-item">Team</div>
+        <div class="nav-item">My Plan</div>
+        <div class="nav-item">Profile</div>
+    </div>
+
+</div>
+
+<script>
+    function switchScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    function setAmount(val) {
+        document.getElementById('deposit-amount').value = val;
+    }
+
+    function openUPI() {
+        let amt = document.getElementById('deposit-amount').value;
+        if(amt < 500) {
+            alert("Minimum deposit is Rs. 500");
+            return;
+        }
+        let upiID = "laxmihi@ptyes";
+        let payeeName = "GoProMerchant";
+        
+        // UPI Intent URI jo mobile me Google Pay, PhonePe, Paytm trigger karega
+        let upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(payeeName)}&am=${amt}&cu=INR`;
+        
+        // Redirect to UPI App
+        window.location.href = upiLink;
+    }
+</script>
+
+</body>
+</html>
